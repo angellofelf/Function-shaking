@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>不使用去抖</title>
+	<script src="js/jquery-1.11.0.min.js"></script>
+	<script>
+		  $(function(){
+		  	  $("input").keyup(test);
+		  	  function test(){
+		  	  	 $.ajax({
+		  	  	 	url:"https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su",
+		  	  	 	data:{"wd":$("input").val()},
+		  	  	 	dataType:"jsonp",
+		  	  	 	jsonp:"cb",
+		  	  	 	success:function(data){
+		  	  	 		 $("ul").remove();
+                       var str="<ul>";
+                       for(var i=0;i<data.s.length;i++){
+                       str+="<li>"+data.s[i]+"</li>";	
+                       }
+                       str+="</ul>";
+                       $("input").after(str);
+		  	  	 	}
+
+		  	  	 })
+		  	  }
+		  })
+	</script>
+</head>
+<body>
+	<input type="text">
+</body>
+</html>

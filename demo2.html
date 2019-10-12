@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>demo2</title>
+</head>
+<body>
+	 <input type="text" id="txt">
+</body>
+<script>
+	 txt.onkeyup=debounce(ajax,2000);
+	 function debounce(fn,delay){
+           var timer,context,args;
+           return function(){
+           	context=this;
+           	args=arguments;
+           	  clearTimeout(timer);
+           	  timer=setTimeout(function(){
+           	  	fn.call(context,args[0])
+           	  },delay);
+           }
+	 }
+	 function ajax(e){
+        console.log(this,e.type);
+	 }
+</script>
+</html>
+
+
+

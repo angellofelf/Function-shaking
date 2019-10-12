@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>去抖</title>
+	<style>
+		ul{
+			list-style: none;
+		}
+	</style>
+	<script src="js/jquery-1.11.0.min.js"></script>
+	<script>       
+		 $(function(){
+            //文本框，键盘抬起触发事件,这里先对debounce调用
+            $("#txt").keyup(debounce(request,1000));
+            //封装一个回调函数
+            function request(){
+            	$.ajax({
+            		url:"https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su",
+            		dataType:"jsonp",
+            		data:{"wd":$("#txt").val()},
+            		jsonp:"cb",
+            		success:function(data){
+                       $("ul").remove();
+                       var str="<ul>";
+                       for(var i=0;i<data.s.length;i++){
+                       str+="<li>"+data.s[i]+"</li>";	
+                       }
+                       str+="</ul>";
+                       $("#txt").after(str);
+            		}
+            	})
+            }
+           //去抖的方法 
+            function debounce(fn,wait){
+                 var timer,context,arg;
+                 return function(){
+                 	    context=this;//执行期上下文
+                 	    arg=arguments;//为了获取事件对象
+                    	clearTimeout(timer);
+                    	timer=setTimeout(function(){
+                            fn.apply(context,arg);
+                    	},wait);
+
+                 }
+            }
+
+		 })
+	</script>
+</head>
+<body>
+   <input type="text" id="txt" placeholder="请输入关键词" />	
+</body>
+</html>
